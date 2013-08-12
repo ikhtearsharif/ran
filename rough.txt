@@ -1,0 +1,36 @@
+//		double [] deltaArray = new double [this.outputLayer.size()];
+//		double [] opDesired = op.getElement(); 
+//		// assign desired output value to opDesired ARRAY
+//		for (int i=0;i<deltaArray.length;i++)
+//		{
+//			deltaArray[i]=this.outputLayer.get(i).getSelfValue()-opDesired[i];// z-y
+//		}
+		
+		//TO DO: rough code need to tune up and fix
+		
+		// calculating hj value
+//		double hj=calculateHj();
+//		
+//		
+//		// Calculate DES
+//		double [] des=new double [this.outputLayer.size()];
+//		double eta1=1;
+//		double threshold=.000005;
+//		
+//		
+//		do {
+//				for (int i=0;i<outputLayer.size();i++)
+//				{
+////			for (int j=0;j<hiddenNode.size();j++)
+////			{
+//					des [i]+= -2*eta1*outputLayer.get(i).getSelfValue()*(1-outputLayer.get(i).getSelfValue())*hj
+//						*(1-hj)*Math.pow((outputLayer.get(i).delta*inp.sumValues()*outputLayer.get(i).sumWeight()), 2);
+//						
+//						//hiddenNode.get(j).getSelfValue()*(1-hiddenNode.get(j).getSelfValue())*Math.pow((deltaArray[i]*), 2);
+//			//}
+//				}
+//		} while (checkDES(des,threshold));
+
+		// print des value
+//		for (int i=0;i<des.length;i++)
+//		System.out.println("DES::  "+des[i]);
