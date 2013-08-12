@@ -4,14 +4,21 @@ package annMain;
 import java.util.ArrayList;
 import java.util.Random;
 
+/*
+ * This class represents the node of the network, including hidden layer and output layer
+ * */
 public class annNode
 {
-	double selfValue;
-	ArrayList<Double> weightArray = new ArrayList<Double>();
-	ArrayList<Double> inArray = new ArrayList<Double>();
-	double delta;
+	double selfValue; // value of the node itself
+	ArrayList<Double> weightArray = new ArrayList<Double>(); // weight associated with input values
+	ArrayList<Double> inArray = new ArrayList<Double>(); // input values to the nodes
+	double delta; // delta value of the node
 	double fsValue;
 	
+	/*
+	 * Create node with input values and their associate weight 
+	 * for the first time delta value will be zero 
+	 * */
 	public  annNode(int noOfinput, double [] inpVal)
 	{
 		
@@ -26,13 +33,15 @@ public class annNode
 		{
 			inArray.add(inpVal[i]);
 		}
-//		 for (int i=0;i<inpVal.length;i++)
-//			 delta.add((double) 0);
+
 		this.delta=0;
 		this.fsValue=0;
 		
 	}
 	
+	/*
+	 * Calculate the value of the node using the formula 1/(1+e^(-s)) where s=sum(weight*input value) 
+	 * */
 	public void calculateSelfValue()
 	{
 		double sum= 0;
@@ -46,6 +55,9 @@ public class annNode
 				
 	}
 	
+	/*
+	 * Calculate new weight using formula new_weight=weight+row*delta*own value where row in constant 1.2
+	 * */
 	public void calculateNewWeight()
 	{
 		double row=1.2;
@@ -56,6 +68,9 @@ public class annNode
 		}
 	}
 	
+	/*
+	 * Summation of the weight associated with input
+	 * */
 	public double sumWeight()
 	{
 		double sum= 0;
@@ -69,6 +84,8 @@ public class annNode
 				
 	}
 	
+	
+	
 	public void calculateFsValue()
 	{
 		
@@ -76,6 +93,9 @@ public class annNode
 		this.fsValue=this.selfValue*(1-this.selfValue);
 	}
 	
+	/*
+	 * summation of the input values
+	 * */
 	public double inpOfNode()
 	{
 		double sum= 0;
@@ -86,9 +106,12 @@ public class annNode
 		}
 		
 		return sum;
-				
 	}
 	
+	
+	/*
+	 * populate new input values into the node
+	 * */
 	public void populateInArray(double [] inp)
 	{
 		for (int i=0;i<inp.length;i++)
@@ -97,32 +120,13 @@ public class annNode
 		}
 	}
 	
-	
-	
-//	public annNode(float a, float b)
-//	{
-//		this.selfValue=a;
-//		
-//	}
-//	
+	/*
+	 * return the value of the node
+	 * */
 	public double getSelfValue()
 	{
 		
 		return this.selfValue;
 	}
-//	
-//	public float getselfWeight()
-//	{
-//		return this.selfWeight;
-//	}
-//
-//	public void setSelfValue(float a)
-//	{
-//				this.selfValue=a;
-//	}
-//	
-//	public void setSelfWeight(float b)
-//	{
-//				this.selfWeight=b;
-//	}
+
 }

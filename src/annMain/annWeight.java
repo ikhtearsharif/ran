@@ -1,6 +1,9 @@
-/**c IS*/
+
 package annMain;
 
+/*
+ * This class will create weight
+ * */
 public class annWeight
 {
 	

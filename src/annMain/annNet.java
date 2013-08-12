@@ -4,6 +4,9 @@ package annMain;
 
 import java.util.ArrayList;
 
+/*
+ * Represents the network 
+ * */
 public class annNet
 {
 
@@ -26,6 +29,10 @@ public class annNet
 
 	}
 	
+	
+	/*
+	 * first sample run 
+	 * */
 	public void inputOfNetwork(annInput a)
 	{
 			for (int i=0;i<this.noOfHiddenLayerNode;i++)
@@ -41,25 +48,27 @@ public class annNet
 				this.outputLayer.get(i).calculateSelfValue();
 	}
 	
+	/*
+	 * Calculate delta for output layer nodes
+	 * */
 	public void calculateDeltaOutpt( annOutput op)
 	{
 		double [] opDesired = op.getElement(); 
 		for (int i=0;i<outputLayer.size();i++)
 		{
-			//outputLayer.get(i).calculateFsValue();
-			//this.outputLayer.get(i).delta= this.outputLayer()*(opDesired[i]- outputLayer.get(i).getSelfValue());
 			this.outputLayer.get(i).delta=this.outputLayer.get(i).selfValue*(1-this.outputLayer.get(i).selfValue)*
 					(opDesired[i]-this.outputLayer.get(i).selfValue);
 		}
 	}
 	
+	/*
+	 * Calculate delta for hidden layer nodes
+	 * */
 	public void calculateDeltaHidden()
 	{
 		double sumDelOut=0;
 		for (int i=0;i<this.hiddenNode.size();i++)
 		{
-			
-			//this.hiddenNode.get(i).calculateSelfValue();
 			for (int j=0;j<this.outputLayer.size();j++)
 			{
 				sumDelOut+= this.outputLayer.get(j).delta*this.outputLayer.get(j).weightArray.get(i).doubleValue();
@@ -69,6 +78,9 @@ public class annNet
 		}
 	}
 	
+	/*
+	 * Caluculate hj
+	 * */
 	public double calculateHj()
 	{
 		double hj=0;
@@ -79,6 +91,10 @@ public class annNet
 		return hj;
 	}
 	
+	
+	/*
+	 * Check des value with threshold
+	 * */
 	public boolean checkDES(double [] des, double threshold)
 	{
 		boolean notLess=false;
@@ -90,6 +106,10 @@ public class annNet
 		return notLess;
 	}
 	
+	
+	/*
+	 * return the delta value into an array
+	 * */
 	public double [] geDeltaArray()
 	{
 		double [] deltaValueArray = new double [this.outputLayer.size()];
@@ -100,6 +120,10 @@ public class annNet
 		
 		return deltaValueArray;
 	}
+	
+	/*
+	 * check delta values with threshold
+	 * */
 	public boolean checDelta( double threshold)
 	{
 		double [] deltaValueArray= this.geDeltaArray();
@@ -112,6 +136,10 @@ public class annNet
 		return notLess;
 	}
 	
+	
+	/*
+	 * run network with different elements
+	 * */
 	public void runNetwork()
 	{
 		
@@ -132,38 +160,55 @@ public class annNet
 		}
 	}
 	
+	
+	/*
+	 * calculate error for the any sample run
+	 * */
 	public void calculateError(annOutput op)
 	{
 		double [] opDesired = op.getElement(); 
 		for (int i=0;i<this.outputLayer.size();i++)
-		{
-			//outputLayer.get(i).calculateFsValue();
+		{	
 			this.selfError+=Math.abs(opDesired[i]- this.outputLayer.get(i).getSelfValue());
 		}
 	}
 	
+	/*
+	 * calculate mean square error for the any  sample run
+	 * */
 	public void calculateMSE(annOutput op)
 	{
 		double [] opDesired = op.getElement(); 
 		double temp=0;
 		for (int i=0;i<this.outputLayer.size();i++)
 		{
-			//outputLayer.get(i).calculateFsValue();
 			temp+=Math.abs(opDesired[i]- this.outputLayer.get(i).getSelfValue())*Math.abs(opDesired[i]- this.outputLayer.get(i).getSelfValue());
 		}
 		this.MSE+=temp/2;
 	}
 	
+	
+	/*
+	 * return error value
+	 * */
 	public double getErrorValue()
 	{
 		return this.selfError;
 	}
 	
+	
+	/*
+	 * return Mean square values
+	 * */
 	public double getMSEValue()
 	{
 		return this.MSE;
 	}
 	 
+	
+	/*
+	 * This function will print the staus of the network including values, input, associated weight of all the hidden, output and input layers 
+	 * */
 	public void printElement()
 	 {
 		 System.out.println("NETWORK SELF ERROR::  "+this.selfError+"   MSE::: "+this.MSE);
@@ -189,6 +234,13 @@ public class annNet
 		 }
 	 }
 	
+	
+	/*
+	 * This function take a sample value and target out and run in hidden and output layer 
+	 * calculate all the new value of hidden and output node 
+	 * calculate new weight 
+	 * calculate error and mean square error
+	 * */
 	public void newRun(annInput inp, annOutput op)
 	{
 		
@@ -221,70 +273,10 @@ public class annNet
 	
 		
 	}
-	public void learning(annInput inp, annOutput op)
-	{
-		//double delta=0;
-		
-//		this.inputOfNetwork(inp);
-//		this.calculateDeltaOutpt( op);
-//		this.calculateDeltaHidden();
-		//double threshold=.000005;
-		
-//		while (checDelta(threshold))
-//		{
-//			System.out.println("OUTPUT LAYER");
-//			for (int i=0;i<outputLayer.size();i++)
-//			{
-//				System.out.println(outputLayer.get(i).selfValue);
-//				for (int j=0;j<outputLayer.get(i).inArray.size();j++)
-//					System.out.println("INOUT VALUE::::"+outputLayer.get(i).inArray.get(j).doubleValue());
-//				for (int j=0;j<outputLayer.get(i).weightArray.size();j++)
-//					System.out.println("Weight  ::::"+outputLayer.get(i).weightArray.get(j).doubleValue());
-//				System.out.println("delta:  "+outputLayer.get(i).delta);
-//				System.out.println("fs:  "+outputLayer.get(i).fsValue);
-//			}
-//			this.runNetwork();
-//			this.calculateDeltaOutpt( op);
-//			this.calculateDeltaHidden();
-//		}
-		
-		
-		
-		
-		////printing steps
-		
-		System.out.println("input::: "+inp.getA()+".."+inp.getB()+".."+inp.getC());
-		
-		System.out.println("HIDDENT LAYER");
-		
-		for (int i=0;i<hiddenNode.size();i++)
-		{
-			System.out.println(hiddenNode.get(i).selfValue);
-			for (int j=0;j<hiddenNode.get(i).inArray.size();j++)
-				System.out.println("INOUT VALUE::::"+hiddenNode.get(i).inArray.get(j).doubleValue());
-			for (int j=0;j<hiddenNode.get(i).weightArray.size();j++)
-				System.out.println("Weight  ::::"+hiddenNode.get(i).weightArray.get(j).doubleValue());
-		}
-		
-		
-		System.out.println("OUTPUT LAYER");
-		for (int i=0;i<outputLayer.size();i++)
-		{
-			System.out.println(outputLayer.get(i).selfValue);
-			for (int j=0;j<outputLayer.get(i).inArray.size();j++)
-				System.out.println("INOUT VALUE::::"+outputLayer.get(i).inArray.get(j).doubleValue());
-			for (int j=0;j<outputLayer.get(i).weightArray.size();j++)
-				System.out.println("Weight  ::::"+outputLayer.get(i).weightArray.get(j).doubleValue());
-			System.out.println("delta"+outputLayer.get(i).delta);
-			System.out.println("fs"+outputLayer.get(i).fsValue);
-		}
-		
-		System.out.println("########################################################################################");
-		
-//		hiddenNode.clear();
-//		outputLayer.clear();
 	
-	}
+	/*
+	 * return an array containg value for any layer such as hidden or output layer
+	 * */
 	public double [] netGetContent (ArrayList<annNode> arrAnn)
 	{
 		double [] layerValue = new double [arrAnn.size()];
@@ -292,7 +284,5 @@ public class annNet
 			layerValue[i]= arrAnn.get(i).getSelfValue();
 		return layerValue;
 	}
-	
-	
 	
 }

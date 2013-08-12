@@ -1,6 +1,9 @@
-/**c IS*/
+
 package annMain;
 
+/*
+ * This class hold the target output values 
+ * */
 public class annOutput
 {
 	
@@ -33,6 +36,9 @@ public class annOutput
 				this.y=b;
 	}
 	
+	/*
+	 * This function will return an array containing the values of the target output
+	 * */
 	public double [] getElement()
 	{
 		double [] elementArray = new double [2];

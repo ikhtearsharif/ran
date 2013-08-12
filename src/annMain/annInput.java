@@ -1,34 +1,23 @@
-/**c IS*/
+
 package annMain;
 
 //import java.util.Random;
 
+
+/*
+ * This class represents any input sample
+ * */
 public class annInput
 {
 	
 	
 	double a,b,c;
-//	double [] weightA = new double [3];
-//	double [] weightB = new double [3];
-//	double [] weightC = new double [3];
-//	
+
 	public annInput(double p,double q,double r)
 	{
 		this.a=p;
 		this.b=q;
-		this.c=r;
-		
-//		Random rand = new Random();
-//		
-//		for (int i=0;i<3;i++)
-//		{
-//			
-//			weightA[i]= rand.nextDouble();
-//			weightB[i]= rand.nextDouble();
-//			weightC[i]= rand.nextDouble();
-//			
-//		}
-		
+		this.c=r;		
 	}
 	
 	public double sumValues()
@@ -37,6 +26,10 @@ public class annInput
 		return this.a+this.b+this.c;
 	}
 	
+	
+	/*
+	 * return an array containing all 3 values of any sample
+	 * */
 	public double [] getContent()
 	{
 		double [] gc = new double [3];

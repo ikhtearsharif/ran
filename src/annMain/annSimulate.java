@@ -1,4 +1,4 @@
-/**c IS*/
+
 package annMain;
 
 import java.io.File;
@@ -27,7 +27,7 @@ public class annSimulate
 		ArrayList<annOutput> op = new ArrayList<annOutput>();
 		
 		
-		
+		// store all the sample from the file into an ArrayList
 		for (int i=0;i<filename.length;i++)
 		{
 			try {
@@ -47,7 +47,7 @@ public class annSimulate
 			}
 		}
 
-		//population desired output values
+		//store desired output values into an ArrayList
 		for (int i=0;i<5;i++)
 			for (int j=0;j<5 ;j++)
 				for (int k=0;k<500;k++)
@@ -55,27 +55,35 @@ public class annSimulate
 					op.add(new annOutput(i,j));
 				}
 		
-//		System.out.println(inp.get(0).getA()+".."+inp.get(0).getB()+".."+inp.get(0).getC());
-//		System.out.println(op.get(0).getX()+".."+op.get(0).getY());
+
 		
 		annNet network = new annNet(3,2); // now support 3 hidden layer node and 2 output layer node
-	//	double threshold=.1;
-		double checkErrorNewEpoch=1;
+	
+		
+		double threshold=.1; // this is the threshold value  to stop learning
+		double checkErrorNewEpoch=1; // this variable will store the average mean square error after every epoch
 		
 		// initialize network
-		network.inputOfNetwork(inp.get(0));
-		network.calculateDeltaOutpt( op.get(0));
-		network.calculateDeltaHidden();
-		network.calculateError(op.get(0));
-		network.calculateMSE(op.get(0));
+		/*
+		 * here the first sample will pass through with a random weight into the hidden layer of the network
+		 * afterward value will pass through to outpur layer
+		 * calculate delta value for the output layer and hiddden layer
+		 * calculate error and mean squared error
+		 * */
+		
+		
+		network.inputOfNetwork(inp.get(0)); // pass the first sample into network(hidden layer) which will go to output layer
+		network.calculateDeltaOutpt( op.get(0));// calculate delta for output layer 
+		network.calculateDeltaHidden(); // calculate delta for hidden layer
+		network.calculateError(op.get(0));// calculate error for the first sample
+		network.calculateMSE(op.get(0));// calculate mean squared error for the first sample
 		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Sample No :::: "+1);
-		network.printElement();
+		network.printElement(); // this will print the current network staus including the value an weight of all hidden and output layer nodes
 		/// verified till initialization
 		
 		
-		//System.out.println("after weight update");
-		//System.out.println("---------------------------------");
-		// update weight
+
+		// update weight, following 2 loop will caluculate and update the new weight for all output layer and hidden layer
 		for (int i=0;i<network.outputLayer.size();i++)
 			network.outputLayer.get(i).calculateNewWeight();
 		for (int i=0;i<network.hiddenNode.size();i++)
@@ -84,6 +92,8 @@ public class annSimulate
 		
 		//network.printElement();
 		
+		
+		// if you need to check with only sample value , run the for loop only  and put the desired value in loop condition
 		for (int i=1;i<10;i++)
 			{
 			        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Sample No :::: "+(i+1));
@@ -96,8 +106,11 @@ public class annSimulate
 		//network.printElement();
 		
 		// run learning till getting new error value less than threshold
+		
+		// uncomment the while loop if you like to check the values in epoch, put the condition in cnt
+		// uncomment while loop "while(checkErrorNewEpoch>threshold)" if you like to check with threshold value
 		int cnt=1;
-		//while (checkErrorNewEpoch>threshold)
+		//while (checkErrorNewEpoch>threshold) 
 //		while (cnt<=2000)
 //		{
 //				for (int i=1;i<inp.size();i++)
@@ -115,17 +128,7 @@ public class annSimulate
 //		}
 //		
 		
-		//System.out.println(op.size());
-		
-//		for (int i=0;i<inp.size();i++)
-//		{
-//			System.out.println(inp.get(i).getA()+".."+inp.get(i).getB()+".."+inp.get(i).getC());
-//		}
-//		
-//		for (int i=0;i<op.size();i++)
-//		{
-//			System.out.println(op.get(i).getX()+".."+op.get(i).getY());
-//		}
+
 	}
 
 }
